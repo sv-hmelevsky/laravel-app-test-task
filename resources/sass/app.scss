@@ -4,5 +4,21 @@
 // Variables
 @import 'variables';
 
-// Bootstrap
+// Bootstrap 5
 @import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+// FontAwesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+
+// Article
+@import 'modules/article';
+
+// Headers
+@import 'modules/headers';
+
+// Hero
+@import 'modules/hero';
