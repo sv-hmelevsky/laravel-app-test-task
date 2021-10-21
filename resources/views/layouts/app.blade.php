@@ -16,15 +16,15 @@
         <nav class="navbar navbar-expand-lg navbar-expend bg-light navbar-light">
             <div class="container-fluid">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-l0">
-                    <li class="nav-item active">
-                        <a href="" class="nav-link menu-link menu-link__active">Главная страница</a>
+                    <li class="nav-item">
+                        <a href="{{ route('home') }}" class="nav-link menu-link {{ $mainLink }}">Главная страница</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link menu-link">Каталог статей</a>
+                        <a href="{{ route('article.index') }}" class="nav-link menu-link {{ $articleLink }}">Каталог статей</a>
                     </li>
                 </ul>
-                <a href="https://github.com/artsocode" class="navbar-brand d-flex justify-content-end">
-                    <span>@ArtSocode</span> &nbsp <i class="bi bi-github"></i>
+                <a href="https://github.com/sv-hmelevsky" class="navbar-brand d-flex justify-content-end">
+                    <span>@sv-hmelevsky</span> &nbsp <i class="bi bi-github"></i>
                 </a>
             </div>
         </nav>

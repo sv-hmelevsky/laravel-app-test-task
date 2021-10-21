@@ -12,6 +12,8 @@ class Article extends Model
 
     protected $fillable = ['title', 'body', 'img', 'slug'];
 
+    public $dates = ['published_at'];
+
     /**
      * Ограничение длинные выводимого тела статьи используя хелпер Laravel
      * @return string
@@ -27,7 +29,7 @@ class Article extends Model
      */
     public function createdAtForHumans()
     {
-        return $this->created_at->diffForHumans();
+        return $this->published_at->diffForHumans();
     }
 
     public function comments()
@@ -45,11 +47,39 @@ class Article extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    /**
+     * Скоуп на получение статей с лимитом
+     * @param $query
+     * @param int $limit
+     * @return mixed
+     */
     public function scopeLastWithLimit($query, $limit = 6)
     {
         return $query->with('state', 'tags')
             ->orderBy('created_at', 'desc')
             ->limit($limit)
             ->get();
+    }
+
+    /**
+     * Скоуп на получение статей с пагинацией.
+     * @param $query
+     * @param $numbers
+     * @return mixed
+     */
+    public function scopeAllPaginate($query, $numbers)
+    {
+        return $query->with('state', 'tags')->orderBy('created_at', 'desc')->paginate($numbers);
+    }
+
+    /**
+     * Скоуп на получение статей по параметру slug.
+     * @param $query
+     * @param $slug
+     * @return mixed
+     */
+    public function scopeFindBySlug($query, $slug)
+    {
+        return $query->with('comments', 'tags', 'state')->where('slug', $slug)->firstOrFail();
     }
 }
