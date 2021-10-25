@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <div class="app">
+    <div id="app">
         <div class="row mt-5">
             <div class="col-12 p-3">
+                <article-component></article-component>
                 <img src="{{$articles->img}}" alt="" class="border rounded mx-auto d-block">
                 <h5 class="mt-5">{{$articles->title}}</h5>
                 <p>
@@ -16,6 +17,10 @@
                 </p>
                 <p class="card-text">{{$articles->body}}</p>
                 <p>Опубликовано: <i>{{$articles->createdAtForHumans()}}</i></p>
+                <div class="mt-3">
+                    <span class="badge bg-primary"><i class="far fa-thumbs-up"></i> {{$articles->state->likes}}</span>
+                    <span class="badge bg-danger"><i class="far fa-eye"></i> {{$articles->state->views}}</span>
+                </div>
             </div>
         </div>
         <hr>
@@ -50,4 +55,5 @@
 @endsection
 
 @section('vie')
+    <script src="{{ mix('/js/app.js') }}"></script>
 @endsection
