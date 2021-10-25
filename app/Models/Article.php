@@ -34,7 +34,7 @@ class Article extends Model
 
     public function comments()
     {
-        return $this->belongsToMany(Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
     public function state()
@@ -55,7 +55,7 @@ class Article extends Model
      */
     public function scopeLastWithLimit($query, $limit = 6)
     {
-        return $query->with('state', 'tags')
+        return $query->with('tags', 'state')
             ->orderBy('created_at', 'desc')
             ->limit($limit)
             ->get();
@@ -69,7 +69,7 @@ class Article extends Model
      */
     public function scopeAllPaginate($query, $numbers)
     {
-        return $query->with('state', 'tags')->orderBy('created_at', 'desc')->paginate($numbers);
+        return $query->with('tags', 'state')->orderBy('created_at', 'desc')->paginate($numbers);
     }
 
     /**
@@ -81,5 +81,15 @@ class Article extends Model
     public function scopeFindBySlug($query, $slug)
     {
         return $query->with('comments', 'tags', 'state')->where('slug', $slug)->firstOrFail();
+    }
+
+    /**
+     * Скоуп на получение статей по параметру tag
+     * @param $query
+     * @return mixed
+     */
+    public function scopeFindByTag($query)
+    {
+        return $query->with('tags', 'state')->orderBy('created_at', 'desc')->paginate(10);
     }
 }

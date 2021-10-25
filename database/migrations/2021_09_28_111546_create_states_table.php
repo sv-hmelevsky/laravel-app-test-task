@@ -14,7 +14,6 @@ class CreateStatesTable extends Migration
     public function up()
     {
         Schema::create('states', function (Blueprint $table) {
-            $table->id();
             $table->integer('likes');
             $table->integer('views');
             $table->foreignId('article_id')->constrained()->onDelete("cascade");
