@@ -7,7 +7,7 @@ export default {
     name: "ViewsComponent",
     computed: {
         viewsNumber() {
-            return this.$store.getters.articleView;
+            return this.$store.getters['article/articleView'];
         }
     },
     mounted() {

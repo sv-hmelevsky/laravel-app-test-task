@@ -1,22 +1,22 @@
 <template>
     <span @click="addLike()" class="badge likesButton" :class="isLike ? 'bg-primary' : 'bg-danger'">
-        {{likesNumber}} <i class="far fa-thumbs-up"></i>
+        {{ articleLikes }} <i class="far fa-thumbs-up"></i>
     </span>
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+
 export default {
     computed: {
         isLike() {
-            return this.$store.state.likeIt;
+            return this.$store.state.article.likeIt;
         },
-        likesNumber() {
-            return this.$store.getters.articleLikes;
-        }
+        ...mapGetters('article', ['articleLikes'])
     },
     methods: {
         addLike() {
-            return this.$store.dispatch('addLike', {
+            return this.$store.dispatch('article/addLike', {
                 slug: this.$store.state.slug,
                 increment: this.isLike
             });

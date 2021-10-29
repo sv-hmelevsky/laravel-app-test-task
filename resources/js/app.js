@@ -26,7 +26,7 @@ const app = new Vue({
         let slug = url.substring(url.lastIndexOf('/')+1);
 
         this.$store.commit('SET_SLUG', slug);
-        this.$store.dispatch('getArticleDate', slug);
-        this.$store.dispatch('viewsIncrement', slug);
+        this.$store.dispatch('article/getArticleDate', slug);
+        this.$store.dispatch('article/viewsIncrement', slug);
     }
 });
