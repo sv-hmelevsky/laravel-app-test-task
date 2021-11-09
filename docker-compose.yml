@@ -1,0 +1,65 @@
+version: '3.3'
+services:
+
+  #Nginx Service
+  webserver:
+    image: nginx:stable-alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "${DOCKER_APP_PORT}:80"
+      - "${DOCKER_APP_SSL_PORT}:443"
+    depends_on:
+      - app
+    volumes:
+      - ./codebase:/var/www
+      - ./docker/server/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/server/Dockerfile
+    image: php:7.4-fpm
+    container_name: ${DOCKER_APP_NAME}-fpm
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: fpm
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./codebase:/var/www
+      - ./docker/server/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+
+  #MySQL Service
+  db:
+    image: mysql:latest
+    container_name: db
+    restart: always
+    tty: true
+    ports:
+      - "${DOCKER_MYSQL_PORT}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DOCKER_MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DOCKER_MYSQL_DATABASE}
+      MYSQL_USER: ${DOCKER_MYSQL_USER}
+      MYSQL_PASSWORD: ${DOCKER_MYSQL_ROOT_PASSWORD}
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
