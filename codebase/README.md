@@ -85,11 +85,11 @@
 ## Запуск проекта
 1. `git clone имя_репозитория` - Сперва клонируем репозиторий, после чего переходим в папку проекта.
 2. `make init` - Собираем проект.
-3. `docker-compose exec app php artisan migrate:refresh --seed` - Запускаем миграции и запускаем посев данных (в случае возникновения ошибки 1062 Duplicate entry, запустите команду ещё раз или два, пока не получите сообщение - Database seeding completed successfully. Такое случается т.к. генератор посева данных faker, ограничен в своей фантазии)
-4. `docker-compose exec app composer install` - Устанавливаем PHP зависимости
-5. `docker-compose exec app composer dump-autoload -o` - Загружаем классы которые должны быть добавлены в пакет /app/helpers
-6. `docker-compose exec app npm install` - Ставим NPM пакеты
-7. `docker-compose exec app npm run dev` - Запускаем NPM сборку
-8. Добавляем в файл `/etc/hosts` или `C:\Windows\System32\drivers\etc\hosts` - 127.0.0.1 laravelapp.ru
+3. `docker-compose exec app php artisan key:generate` - Генерируем ключ приложения
+4. `docker-compose exec app php artisan migrate:refresh --seed` - Запускаем миграции и запускаем посев данных (в случае возникновения ошибки 1062 Duplicate entry, запустите команду ещё раз или два, пока не получите сообщение - Database seeding completed successfully. Такое случается т.к. генератор посева данных faker, ограничен в своей фантазии)
+5. `docker-compose exec app composer install` - Устанавливаем PHP зависимости
+6. `docker-compose exec app composer dump-autoload -o` - Загружаем классы которые должны быть добавлены в пакет /app/helpers
+7. `docker-compose exec app npm install` - Ставим NPM пакеты
+8. `docker-compose exec app npm run dev` - Запускаем NPM сборку
+9. Добавляем в файл `/etc/hosts` или `C:\Windows\System32\drivers\etc\hosts` - 127.0.0.1 laravelapp.ru
 Проект доступен по url: laravelapp.ru
-

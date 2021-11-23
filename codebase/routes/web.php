@@ -17,3 +17,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/articles', [App\Http\Controllers\ArticleController::class, 'index'])->name('article.index');
 Route::get('/articles/{slug}', [App\Http\Controllers\ArticleController::class, 'show'])->name('article.show');
 Route::get('/articles/tag/{tag}', [App\Http\Controllers\ArticleController::class, 'allByTag'])->name('article.tag');
+
+// Админка
+Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
+    Route::get('/', [App\Http\Controllers\Admin\MainController::class, 'index'])->name('admin.index');
+});

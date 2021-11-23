@@ -14,7 +14,7 @@ services:
       - app
     volumes:
       - ./codebase:/var/www
-      - ./docker/server/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./docker/server/nginx/conf.d:/etc/nginx/conf.d
     networks:
       - app-network
 
